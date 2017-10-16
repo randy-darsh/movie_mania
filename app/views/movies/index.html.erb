@@ -1,5 +1,6 @@
-<h1>Movies Index</h1>
-<% @movies.each do |movie| %>
+<h1><%= @director.name %>'s Movie Index</h1>
+
+<% @director.movies.each do |movie| %>
 <ul>
   <li>
   <%= movie.title %><br><br>

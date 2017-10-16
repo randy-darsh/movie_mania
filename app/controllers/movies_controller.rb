@@ -1,10 +1,16 @@
 class MoviesController < ApplicationController
-
+  
   def index
-    @movies = Movie.all
+    @director = Director.find(params[:director_id])
+    if params[:director_id]
+      @movies = Movie.where(director_id: params[:director_id])
+    else
+      @movies = Movie.all
+    end
   end
 
   def new
+    @director = Director.find(params[:director_id])
     @movie = Movie.new
   end
 
@@ -17,12 +23,9 @@ class MoviesController < ApplicationController
   end
 
   def create
-    @movie = Movie.new(movie_params)
-    if @movie.save
-      redirect_to movies_path
-    else
-      render :new
-    end
+    director = Director.find(params[:director_id])
+    director.movies.create(movie_params)
+    redirect_to director_movies_path
   end
 
   def update
